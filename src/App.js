@@ -1,6 +1,8 @@
 import React from "react";
 import Messages from "./components/Messages";
 import MessageForm from "./components/MessageForm";
+import Header from "./components/Header";
+import "./custom.css";
 import "./App.css";
 import { EALREADY } from "constants";
 
@@ -9,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      currentUser: "Diego"
+      currentUser: "Mohamed"
     };
   }
 
@@ -25,6 +27,29 @@ class App extends React.Component {
         }
       }
     );
+  };
+  editMessage = (id, text) => {
+    const updateInfo = {
+      method: "PUT",
+      body: JSON.stringify({
+        id: id,
+        from: this.state.currentUser,
+        text: text
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    fetch("http://localhost:3004/messages", updateInfo).then(res => {
+      if (res.status >= 200 && res.status < 300) {
+        this.getMessages();
+      } else if (res.status === 419) {
+        alert("Please inter your message");
+      } else {
+        alert("Something went wrong, please try again");
+      }
+    });
   };
   getMessages = () => {
     fetch("http://localhost:3004/messages")
@@ -66,11 +91,12 @@ class App extends React.Component {
     console.log("render");
     console.log(this.state.messages);
     return (
-      <div className="App">
-        <h1>hello from app</h1>
+      <div className="container">
+        <Header />
         <Messages
           data={this.state.messages}
           deleteMesssage={this.deleteMesssage}
+          editMessage={this.editMessage}
         />
         <MessageForm sendNewMessage={this.sendNewMessage} />
       </div>

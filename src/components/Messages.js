@@ -2,11 +2,17 @@ import React from "react";
 import MessageItem from "./MessageItem";
 const Messages = props => {
   return (
-    <div>
-      <h1>Messages</h1>
+    <div className="container-fluid">
+      <div className="jumbotron text-center">
+        <h3>MESSAGES</h3>
+      </div>
       {props.data.map(msg => {
         return (
-          <MessageItem message={msg} deleteMesssage={props.deleteMesssage} />
+          <MessageItem
+            message={msg}
+            deleteMesssage={props.deleteMesssage}
+            editMessage={props.editMessage}
+          />
         );
       })}
     </div>

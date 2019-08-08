@@ -20,15 +20,22 @@ export class MessageForm extends Component {
     return (
       <div>
         <form>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            placeholder="type here"
-            value={this.state.message}
-          />
-          <button onClick={this.handleSendClick} type="submit">
-            Send
-          </button>
+          <div className="form-group">
+            <input
+              className="form-control-file form-control-sm"
+              onChange={this.handleChange}
+              type="text"
+              placeholder="type here"
+              value={this.state.message}
+            />
+            <button
+              className="btn btn-info btn-rounded btn-sm waves-effect waves-light float-right"
+              onClick={this.handleSendClick}
+              type="submit"
+            >
+              Send
+            </button>
+          </div>
         </form>
       </div>
     );
